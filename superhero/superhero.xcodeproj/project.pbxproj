@@ -19,6 +19,8 @@
 		4546C4C627CBC5A600074074 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4546C4C427CBC5A600074074 /* SearchTableViewCell.xib */; };
 		4546C4C927CBCC8100074074 /* HeroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546C4C727CBCC8100074074 /* HeroTableViewCell.swift */; };
 		4546C4CA27CBCC8100074074 /* HeroTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4546C4C827CBCC8100074074 /* HeroTableViewCell.xib */; };
+		4546C4CD27CBCFD100074074 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546C4CC27CBCFD100074074 /* Constants.swift */; };
+		4546C4D027CBD05400074074 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546C4CF27CBD05400074074 /* CustomImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		4546C4C427CBC5A600074074 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 		4546C4C727CBCC8100074074 /* HeroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroTableViewCell.swift; sourceTree = "<group>"; };
 		4546C4C827CBCC8100074074 /* HeroTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeroTableViewCell.xib; sourceTree = "<group>"; };
+		4546C4CC27CBCFD100074074 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4546C4CF27CBD05400074074 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,8 @@
 		4546C4A627CBB2D400074074 /* superhero */ = {
 			isa = PBXGroup;
 			children = (
+				4546C4CE27CBD03D00074074 /* Custom ImageView */,
+				4546C4CB27CBCFBA00074074 /* Constant */,
 				4546C4BC27CBB30500074074 /* Model */,
 				4546C4BD27CBB30F00074074 /* View */,
 				4546C4BE27CBB32800074074 /* View Model */,
@@ -115,6 +121,22 @@
 			children = (
 			);
 			path = "View Model";
+			sourceTree = "<group>";
+		};
+		4546C4CB27CBCFBA00074074 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				4546C4CC27CBCFD100074074 /* Constants.swift */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
+		4546C4CE27CBD03D00074074 /* Custom ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				4546C4CF27CBD05400074074 /* CustomImageView.swift */,
+			);
+			path = "Custom ImageView";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,9 +214,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4546C4AC27CBB2D400074074 /* SuperHeroViewController.swift in Sources */,
+				4546C4D027CBD05400074074 /* CustomImageView.swift in Sources */,
 				4546C4C927CBCC8100074074 /* HeroTableViewCell.swift in Sources */,
 				4546C4A827CBB2D400074074 /* AppDelegate.swift in Sources */,
 				4546C4AA27CBB2D400074074 /* SceneDelegate.swift in Sources */,
+				4546C4CD27CBCFD100074074 /* Constants.swift in Sources */,
 				4546C4C227CBB50900074074 /* Model.swift in Sources */,
 				4546C4C527CBC5A600074074 /* SearchTableViewCell.swift in Sources */,
 			);

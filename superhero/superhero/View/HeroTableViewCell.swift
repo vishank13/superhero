@@ -11,12 +11,15 @@ class HeroTableViewCell: UITableViewCell {
 
     @IBOutlet weak var mainbgView: UIView!
     @IBOutlet weak var imageContainerView: UIView!
-    @IBOutlet weak var heroImageView: UIImageView!
+    @IBOutlet weak var heroImageView: CustomImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        imageContainerView.layer.cornerRadius = 35
+        heroImageView.layer.cornerRadius = 35
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
