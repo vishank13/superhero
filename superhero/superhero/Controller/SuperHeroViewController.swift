@@ -14,6 +14,7 @@ class SuperHeroViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var heroTableView: UITableView!
+    @IBOutlet weak var blackBgView: UIView!
     
     var heroDatabase: [Superhero]?
     var filterData: [Superhero]?
@@ -26,9 +27,12 @@ class SuperHeroViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setup() {
-        navigationTitleLabel.text = "Hero / Villian"
+        navigationTitleLabel.text = "Search"
         searchTextField.delegate = self
         searchTableView.isHidden = true
+        blackBgView.isHidden = true
+        searchTableView.layer.cornerRadius = 20
+        searchTableView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
     
     func registerNib() {
@@ -53,13 +57,19 @@ class SuperHeroViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         searchTableView.isHidden = true
+        blackBgView.isHidden = true
         heroTableView.reloadData()
         return true
     }
     
     @IBAction func searchName(_ sender: UITextField) {
-        searchTableView.isHidden = false
         let filteredData = heroDatabase?.filter{ $0.name!.lowercased().replacingOccurrences(of: " ", with: "").contains(sender.text?.lowercased() ?? "") }
+        searchTableView.isHidden = filteredData?.count ?? 0 > 0 ? false : true
+        UIView.animate(withDuration: 5, delay: 5, options: .transitionCrossDissolve) {
+            self.blackBgView.isHidden = filteredData?.count ?? 0 > 0 ? false : true
+        }
+
+        blackBgView.isHidden = filteredData?.count ?? 0 > 0 ? false : true
         print(filteredData?.count)
         filterData = filteredData
         searchTableView.reloadData()
@@ -99,21 +109,30 @@ extension SuperHeroViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            if searchTextField.text!.isEmpty {
-                guard let name = heroDatabase?[indexPath.row].name, let img = heroDatabase?[indexPath.row].images.xs, let url = URL(string: img) else {
-                    return UITableViewCell()
-                }
-                cell.activityIndicator.startAnimating()
-                cell.nameLabel.text = name
-                cell.heroImageView.loadImage(from: url, indicator: cell.activityIndicator)
-            } else {
-                guard let name = filterData?[indexPath.row].name, let img = filterData?[indexPath.row].images.xs, let url = URL(string: img) else {
-                    return UITableViewCell()
-                }
-                cell.activityIndicator.startAnimating()
-                cell.nameLabel.text = name
-                cell.heroImageView.loadImage(from: url, indicator: cell.activityIndicator)
+//            if searchTextField.text!.isEmpty {
+//                guard let name = heroDatabase?[indexPath.row].name, let img = heroDatabase?[indexPath.row].images.xs, let url = URL(string: img) else {
+//                    return UITableViewCell()
+//                }
+//                cell.activityIndicator.startAnimating()
+//                cell.nameLabel.text = name
+//                cell.heroImageView.loadImage(from: url, indicator: cell.activityIndicator)
+//            } else {
+//                guard let name = filterData?[indexPath.row].name, let img = filterData?[indexPath.row].images.xs, let url = URL(string: img) else {
+//                    return UITableViewCell()
+//                }
+//                cell.activityIndicator.startAnimating()
+//                cell.nameLabel.text = name
+//                cell.heroImageView.loadImage(from: url, indicator: cell.activityIndicator)
+//            }
+            
+            let details = searchTextField.text!.isEmpty ? heroDatabase : filterData
+            
+            guard let name = details?[indexPath.row].name, let img = details?[indexPath.row].images.xs, let url = URL(string: img) else {
+                return UITableViewCell()
             }
+            cell.activityIndicator.startAnimating()
+            cell.nameLabel.text = name
+            cell.heroImageView.loadImage(from: url, indicator: cell.activityIndicator)
             
             return cell
         }
