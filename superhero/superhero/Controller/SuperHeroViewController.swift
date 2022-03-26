@@ -62,8 +62,9 @@ class SuperHeroViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    @IBAction func searchName(_ sender: UITextField) {
-        let filteredData = heroDatabase?.filter{ $0.name!.lowercased().replacingOccurrences(of: " ", with: "").contains(sender.text?.lowercased() ?? "") }
+    func filterData(name: String) {
+        print(name)
+        let filteredData = heroDatabase?.filter{ $0.name!.lowercased().contains(name.lowercased() ) }
         searchTableView.isHidden = filteredData?.count ?? 0 > 0 ? false : true
         UIView.animate(withDuration: 5, delay: 5, options: .transitionCrossDissolve) {
             self.blackBgView.isHidden = filteredData?.count ?? 0 > 0 ? false : true
@@ -75,7 +76,9 @@ class SuperHeroViewController: UIViewController, UITextFieldDelegate {
         searchTableView.reloadData()
     }
     
-    
+    @IBAction func searchName(_ sender: UITextField) {
+        filterData(name: sender.text ?? "")
+    }
     
 }
 
@@ -109,22 +112,6 @@ extension SuperHeroViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
-//            if searchTextField.text!.isEmpty {
-//                guard let name = heroDatabase?[indexPath.row].name, let img = heroDatabase?[indexPath.row].images.xs, let url = URL(string: img) else {
-//                    return UITableViewCell()
-//                }
-//                cell.activityIndicator.startAnimating()
-//                cell.nameLabel.text = name
-//                cell.heroImageView.loadImage(from: url, indicator: cell.activityIndicator)
-//            } else {
-//                guard let name = filterData?[indexPath.row].name, let img = filterData?[indexPath.row].images.xs, let url = URL(string: img) else {
-//                    return UITableViewCell()
-//                }
-//                cell.activityIndicator.startAnimating()
-//                cell.nameLabel.text = name
-//                cell.heroImageView.loadImage(from: url, indicator: cell.activityIndicator)
-//            }
-            
             let details = searchTextField.text!.isEmpty ? heroDatabase : filterData
             
             guard let name = details?[indexPath.row].name, let img = details?[indexPath.row].images.xs, let url = URL(string: img) else {
@@ -140,5 +127,19 @@ extension SuperHeroViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(filterData?[indexPath.row].name)
+        if tableView == searchTableView {
+            guard let name = filterData?[indexPath.row].name else { return }
+            searchTextField.text = name
+            filterData(name: name)
+            searchTableView.isHidden = true
+            blackBgView.isHidden = true
+            
+//            searchName(searchTextField)
+//            searchTextField.resignFirstResponder()
+//            searchTableView.isHidden = true
+//            blackBgView.isHidden = true
+            heroTableView.reloadData()
+            searchTextField.resignFirstResponder()
+        }
     }
 }
